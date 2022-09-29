@@ -5,6 +5,11 @@
       :nodeData="nodeData"
       :lf="lf"
       @onClose="handleClose"/>
+		<SunTest
+      v-else-if="nodeData.type === 'SunRect'"
+      :nodeData="nodeData"
+      :lf="lf"
+      @onClose="handleClose"/>
     <CommonProperty
       v-else
       :nodeData="nodeData"
@@ -15,12 +20,14 @@
 <script>
 import CommonProperty from './CommonProperty'
 import User from './User.vue'
+import SunTest from './SunTest.vue'
 
 export default {
   name: 'PropertyDialog',
   components: {
     CommonProperty,
-    User
+    User,
+		SunTest
   },
   props: {
     nodeData: Object,

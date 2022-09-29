@@ -1,13 +1,25 @@
 export const nodeList = [
+	{
+    text: '选择',
+    class: 'node-select'
+  },
   {
     text: '开始',
     type: 'start',
     class: 'node-start'
   },
   {
+    text: '自定义矩形',
+    type: 'SunRect',
+    class: 'node-rect',
+		properties: {
+			name:"测试11"
+		}
+  },
+  {
     text: '矩形',
     type: 'rect',
-    class: 'node-rect'
+    class: 'node-rect',
   },
   {
     type: 'user',

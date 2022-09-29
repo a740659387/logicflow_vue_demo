@@ -1,0 +1,21 @@
+import { RectNode, RectNodeModel } from "@logicflow/core";
+
+
+class SunRectNode extends RectNode {
+	getShape(){
+		return super.getShape()
+	}
+}
+
+class SunRectModel extends RectNodeModel{
+	initNodeData(data){
+		super.initNodeData(data)
+	}
+}
+
+export default {
+  type: "SunRect",
+  view: SunRectNode,
+	model: SunRectModel
+};
+

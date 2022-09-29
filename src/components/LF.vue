@@ -51,7 +51,7 @@
 <script>
 import LogicFlow from '@logicflow/core'
 // const LogicFlow = window.LogicFlow
-import { Menu, Snapshot, MiniMap } from '@logicflow/extension'
+import { Menu, Snapshot, MiniMap, SelectionSelect } from '@logicflow/extension'
 import '@logicflow/core/dist/style/index.css'
 import '@logicflow/extension/lib/style/index.css'
 import NodePanel from './LFComponents/NodePanel'
@@ -60,6 +60,8 @@ import Control from './LFComponents/Control'
 import PropertyDialog from './PropertySetting/PropertyDialog'
 import DataDialog from './LFComponents/DataDialog'
 import { nodeList } from './config'
+import SunRect from '@/view/node/SunRect'
+
 
 import {
   registerStart,
@@ -119,7 +121,8 @@ export default {
         plugins: [
           Menu,
           MiniMap,
-          Snapshot
+          Snapshot,
+					SelectionSelect
         ],
         container: this.$refs.container,
       })
@@ -155,6 +158,18 @@ export default {
           }
         },
       })
+			this.lf.register(SunRect)
+			const { keyboard } = lf;
+      const { options: { keyboard: keyboardOptions } } = keyboard;
+			keyboard.on(['delete'],($event, aa)=>{
+        if (!keyboardOptions.enabled) return;
+        console.log("键盘delete事件触发",$event, aa)
+        const data = lf.getSelectElements(false)
+        console.log(data)
+        for(var node of data.nodes){
+          lf.deleteElement(node.id)
+        }
+			})
       this.$_registerNode()
     },
     // 自定义

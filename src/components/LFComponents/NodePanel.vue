@@ -4,10 +4,10 @@
       v-for="item in nodeList"
       :key="item.text"
       @mousedown="$_dragNode(item)">
-    <div class="node-item-icon" :class="item.class">
-      <div v-if="item.type === 'user' || item.type === 'time'" class="shape"></div>
-    </div>
-    <span class="node-label">{{item.text}}</span>
+			<div class="node-item-icon" :class="item.class">
+				<div v-if="item.type === 'user' || item.type === 'time'" class="shape"></div>
+			</div>
+			<span class="node-label">{{item.text}}</span>
     </div>
   </div>
 </template>
@@ -20,8 +20,17 @@ export default {
   },
   methods: {
     $_dragNode (item) {
+			if(!item.type)
+			{
+				this.lf.extension.selectionSelect.openSelectionSelect()
+				this.lf.once("selection:selected",()=>{
+					this.lf.extension.selectionSelect.closeSelectionSelect()
+				})
+				return;
+			}
       this.$props.lf.dnd.startDrag({
         type: item.type,
+				properties: item.properties,
       })
     }
   }
@@ -53,6 +62,10 @@ export default {
   font-size: 12px;
   margin-top: 5px;
   user-select: none;
+}
+.node-select{
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAAH6ji2bAAAABGdBTUEAALGPC/xhBQAAAOVJREFUOBGtVMENwzAIjKP++2026ETdpv10iy7WFbqFyyW6GBywLCv5gI+Dw2Bluj1znuSjhb99Gkn6QILDY2imo60p8nsnc9bEo3+QJ+AKHfMdZHnl78wyTnyHZD53Zzx73MRSgYvnqgCUHj6gwdck7Zsp1VOrz0Uz8NbKunzAW+Gu4fYW28bUYutYlzSa7B84Fh7d1kjLwhcSdYAYrdkMQVpsBr5XgDGuXwQfQr0y9zwLda+DUYXLaGKdd2ZTtvbolaO87pdo24hP7ov16N0zArH1ur3iwJpXxm+v7oAJNR4JEP8DoAuSFEkYH7cAAAAASUVORK5CYII=) no-repeat;
+  background-size: cover;
 }
 .node-start{
   background: url('../background/start.png') no-repeat;
